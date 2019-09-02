@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3>Query:</h3>
+
+    <form method="POST">
+
+			<div class="text-center"> 
+                <div style="display: none" class="input-single" id="input-field">
+                    <textarea class="form-control" name="text" id="note-textarea" placeholder="Create a new query by typing or using voice recognition." rows="4">{{text}}</textarea>
+                </div>
+
+                <div class="form-group">
+                <div class="btn-group btn-group-justified">
+                    <button style="display: none" id="start-record-btn" type="button" class="btn btn-outline-primary"> Start Recording</button>
+                    <button style="display: none" id="pause-record-btn" type="button" class="btn btn-outline-primary"> Pause Recording</button>
+                  </div>
+                </div>
+
+                
+                {% if text|length < 1 %}
+
+                <div id='languages' class="input-group-lg">
+
+            	    <div class="input-group-text" onclick="change_language('en-IN')">
+	                   <input type="radio" name="language" id="english"> English
+	  				</div>
+	  				<div class="input-group-text" onclick="change_language('hi-IN')">
+                        <input type="radio" name="language" id="hindi">Hindi
+                    </div> 
+	  				<div class="input-group-text" onclick="change_language('hi-IN')">
+	  				    <input type="radio" name="language" id="marathi">Marathi
+                    </div>
+	  				<div class="input-group-text" onclick="change_language('kn-IN')">
+	  				     <input type="radio" name="language" id="kannada">Kannada
+                    </div>
+  				</div>
+
+                {% endif %}
+  				
+                <div id="satisfied" class="input-group-lg">
+                    {% if query_found == True %}
+                    <div class="input-group-text">
+                        <input type="radio" name="satisfied" value="True">Not Satisfied with the query suggested?
+                    </div>
+                    {% endif %}
+                    
+                    <div style="display: none">
+                        <input type="radio" name="satisfied" value="False" checked>Satisfied with the query suggested?<br>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" role="alert" id="recording-instructions"></div>
+
+                <div class="form-group row">
+                  <div class="offset-sm-5 col-sm-10">
+                    <input style="display: none" id="submit-btn" class="btn btn-primary" type="submit">
+                  </div>
+                </div>
+
+            </div>	    
+	</form>
+    <div>
+
+    {% if elaborate == True %}
+        <div class="alert alert-danger" role="alert">
+            Please elaborate your query
+        </div>
+    {% endif %}
+    {% if query_found == True %}
+        <div class="alert alert-danger" role="alert">
+            We found a previously solved query which is similar to your question:
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Query:</h3>
+
+            <strong>Query text</strong>
+            
+            <div class="card-body">
+              <p>{{similar_query[0][1]}}</p>
+            </div>
+            
+            <strong>Solution provided</strong>
+            
+            <div class="card-body">
+              <p>{{similar_query[0][3]}}</p>
+            </div>
+
+            <label class="card-link"><strong>Date:</strong> {{similar_query[0][4]}}</label> <span class="card-link"><strong>Department: </strong>{{similar_query[0][2]}}</span>
+          </div>
+        </div>
+        
+    {% elif query_found == False and elaborate == False %}
+        
+        <div class="alert alert-success" role="alert">
+            <h3>Your Query has been posted successfully and is under department: <strong> {{department[0]}}</strong>. Please keep this Query id for future references: <strong>{{department[1][0]}}</strong> We'll get back to you soon. Thank you!</h3>
+        </div>
+
+    {% endif %}
+    </div>
+{% endblock content %}

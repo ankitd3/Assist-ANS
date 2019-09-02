@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+  <h2>Solve Queries:</h2>  
+  <div style="margin-bottom: 10px">
+  <div class="dropdown" id="department_dropdown">
+  </div>
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select your Department
+    <span class="caret"></span></button>
+
+    <ul class="dropdown-menu">
+    	{% for dept in departments %}
+
+    	<li><a href="#" onclick="filter_dept('{{dept}}')">{{dept}}</a></li>
+
+  		{% endfor %}
+    </ul>
+  </div>
+
+  <div id="solve_form" style="display: none">
+	  <form method="POST">
+	  	<div class="form-group row">
+		  <label for="query_id_input" class="col-2 col-form-label">Query ID</label>
+		  <div class="col-10">
+		    <input class="form-control" type="number" id="query_id_input" name="q_id" min="1" max="5000" placeholder="Click on the query cards below">
+		  </div>
+		</div>
+		<div class="form-group row">
+		  <label for="emp_id_input" class="col-2 col-form-label">EMP ID</label>
+		  <div class="col-10">
+		    <input class="form-control" type="number" id="emp_id_input" name="e_id" min="1" max="1000" placeholder="Enter your unique ID">
+		  </div>
+		</div>
+	    <div id="solution_text" class="form-group">
+	    	<textarea class="form-control" name="solution" placeholder="Enter Solution"rows="4"></textarea>
+	    </div>
+
+		<select style="display: none" id="new_department_dropdown" name="new_department">
+		<option value="0" selected>Select new department</option>	
+	    {% for dept in departments %}
+		    <option value="{{dept}}">{{dept}}</option>
+		{% endfor %}
+		 </select>
+
+	  	<div class="form-group row">
+	      <div class="offset-sm-5 col-sm-10">
+	      	<input class="btn btn-primary" type="submit">
+	      </div>
+	    </div>
+	  </form>
+  </div>
+
+  {% if success == 1 %}
+  <div class="alert alert-success" role="alert">Successly submitted the solution.</div>
+  {% endif %}
+
+  {% if success == 2 %}
+  <div class="alert alert-success" role="alert">Successly changed the department.</div>
+  {% endif %}
+
+  {% for query in queries %}
+     <div style="display: none" class="query_card card {{query[2]}}" onclick="select_query('{{query[0]}}')">
+	  <div class="card-body">
+	    <h5 class="card-title">QID: {{query[0]}}</h5>
+	    <h6 class="card-subtitle mb-2 text-muted">Department: {{query[2]}}</h6> 
+	   	<p class="card-text">
+	      {{query[1]}}
+	    </p>
+	    <strong class="card-link">{{query[3]}}</strong>
+	    <button type="button" onclick="change_department()" class="btn btn-outline-primary btn-sm">Change Department</button>
+	  </div>
+	</div>
+  {% endfor %}
+    
+{% endblock content %}
