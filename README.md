@@ -1,4 +1,7 @@
 # Assist-ANS
+
+Sample video: https://youtu.be/7XKeM5ho8nk
+
 A mobile-first grievances web-app using NLP
 
 Download the source code and "Google pre-trained vectors" (link: https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit) and provide the path to it in the file "NLP/distance.py" to the variable: "wordmodelfile". 

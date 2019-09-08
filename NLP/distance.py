@@ -122,7 +122,6 @@ def log_query(query_id, query, department):
     return data.loc[data['query'] == query].values.tolist()[0]
 
 #----------------------------------------------------------------------
-#keys = ['bedbugs','cctv','pipeline','Open spaces', 'gutter','garbage','rats','mice','robbery','theft','passage','gulli','lane','light','bathrooms not clean','toilets not clean','playarea','mosquito','fogging','water']
 def fetch_query_details(text,query_id,file_name):
     data = pd.read_csv("~/Documents/STUDY/Hackathon/NLP/dataset/"+file_name+".csv")
     if(text == 'all'):
