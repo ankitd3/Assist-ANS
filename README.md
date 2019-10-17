@@ -1,5 +1,7 @@
 # Assist-ANS
 
+![Imgur](https://i.imgur.com/SIZELab.png)
+
 Sample video: https://youtu.be/7XKeM5ho8nk
 
 A mobile-first grievances web-app using NLP
